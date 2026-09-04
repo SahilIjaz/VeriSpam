@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
+from src.config import IMBALANCE_SEVERE_RATIO, IMBALANCE_WARNING_RATIO
 from src.loader import LoadResult
 
 MAX_MISSING_RATIO_ERROR = 0.5   # above this, warn strongly about overall sparsity (not a hard block)
@@ -156,4 +157,37 @@ def validate_dataset(load_result: LoadResult, required_columns: list[str] | None
         n_cols=n_cols,
         n_duplicates=n_duplicates,
         n_missing_total=n_missing_total,
+    )
+
+
+@dataclass
+class ImbalanceResult:
+    class_counts: pd.Series
+    majority_class: str
+    minority_class: str
+    ratio: float               # majority_count / minority_count
+    is_imbalanced: bool
+    is_severe: bool
+
+
+def detect_class_imbalance(df: pd.DataFrame, label_col: str) -> ImbalanceResult | None:
+    """Assess how skewed the label column's class distribution is.
+
+    Returns None if the column doesn't have at least 2 non-null classes to compare.
+    """
+    counts = df[label_col].dropna().astype(str).value_counts()
+    if len(counts) < 2:
+        return None
+
+    majority_class, majority_count = counts.index[0], counts.iloc[0]
+    minority_class, minority_count = counts.index[-1], counts.iloc[-1]
+    ratio = majority_count / minority_count if minority_count else float("inf")
+
+    return ImbalanceResult(
+        class_counts=counts,
+        majority_class=str(majority_class),
+        minority_class=str(minority_class),
+        ratio=float(ratio),
+        is_imbalanced=ratio >= IMBALANCE_WARNING_RATIO,
+        is_severe=ratio >= IMBALANCE_SEVERE_RATIO,
     )
