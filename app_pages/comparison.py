@@ -67,11 +67,17 @@ comparison_df = pd.DataFrame(rows)
 best_model = comparison_df.loc[comparison_df["F1-score"].idxmax(), "Model"] if not comparison_df.empty else None
 if best_model:
     st.success(f"Best model by F1-score: **{best_model}**", icon=":material/emoji_events:")
+    comparison_df = comparison_df.sort_values("F1-score", ascending=False).reset_index(drop=True)
+    comparison_df["Model"] = comparison_df["Model"].where(comparison_df["Model"] != best_model, f"🏆 {best_model}")
 
 st.dataframe(
-    comparison_df.style.highlight_max(subset=["Accuracy", "Precision", "Recall", "F1-score", "ROC-AUC"], color="#d3f2dc"),
+    comparison_df,
     width="stretch",
     hide_index=True,
+    column_config={
+        col: st.column_config.NumberColumn(format="%.3f")
+        for col in ["Accuracy", "Precision", "Recall", "F1-score", "ROC-AUC"]
+    },
 )
 
 long_df = comparison_df.melt(id_vars="Model", var_name="Metric", value_name="Value").dropna(subset=["Value"])
