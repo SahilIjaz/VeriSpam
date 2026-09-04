@@ -1,5 +1,6 @@
 # Claude Code
 .claude/
+.agents/
 
 # Python
 __pycache__/
