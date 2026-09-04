@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from io import BytesIO
+from pathlib import Path
 
 import pandas as pd
 
@@ -37,8 +38,17 @@ def load_uploaded_file(uploaded_file) -> LoadResult:
     Never raises: read/parse failures are captured on LoadResult.error so the
     caller can render them as validation feedback instead of crashing the app.
     """
-    filename = uploaded_file.name
-    raw = uploaded_file.getvalue()
+    return _load_bytes(uploaded_file.name, uploaded_file.getvalue())
+
+
+def load_local_file(path: Path) -> LoadResult:
+    """Read a file already on disk (e.g. the bundled sample dataset) the same
+    way an upload would be read, so both paths share one parsing code path."""
+    path = Path(path)
+    return _load_bytes(path.name, path.read_bytes())
+
+
+def _load_bytes(filename: str, raw: bytes) -> LoadResult:
     size_bytes = len(raw)
     extension = "." + filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
 

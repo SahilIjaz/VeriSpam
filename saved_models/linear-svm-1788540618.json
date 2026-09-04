@@ -1,0 +1,20 @@
+{
+  "slug": "linear-svm-1788540618",
+  "model_key": "Linear SVM",
+  "trained_at": "2026-09-04T16:50:18+00:00",
+  "n_train": 4179,
+  "n_test": 1393,
+  "classes": [
+    "ham",
+    "spam"
+  ],
+  "metrics": {
+    "accuracy": 0.9863603732950467,
+    "f1": 0.9694782812260351,
+    "roc_auc": 0.9892582541836273,
+    "precision": 0.9896998701361166,
+    "recall": 0.9514570640558349,
+    "predict_time_sec": 0.03451428799962741,
+    "train_time_sec": 0.11165106699991156
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "naive-bayes-1788540617",
+  "model_key": "Naive Bayes",
+  "trained_at": "2026-09-04T16:50:17+00:00",
+  "n_train": 4179,
+  "n_test": 1393,
+  "classes": [
+    "ham",
+    "spam"
+  ],
+  "metrics": {
+    "accuracy": 0.9712849964106246,
+    "f1": 0.932312925170068,
+    "roc_auc": 0.9904532595489576,
+    "precision": 0.9809690541444571,
+    "recall": 0.895307331435514,
+    "predict_time_sec": 0.025949856000352156,
+    "train_time_sec": 0.10507526700030212
+  }
+}

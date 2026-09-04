@@ -78,6 +78,30 @@ def _roc_auc(pipeline: Pipeline, X_test: pd.Series, y_test: pd.Series, classes: 
         return None, f"Not available: {exc}", None, None
 
 
+def metrics_from_saved(saved: dict) -> Metrics:
+    """Reconstruct a lightweight Metrics view from a persisted model's metadata.
+
+    A loaded (not freshly trained) model wasn't just re-evaluated against a
+    live test split, so the confusion matrix / classification report / ROC
+    curve points aren't available — only the summary numbers saved alongside
+    it. The Evaluation page shows a note explaining the difference.
+    """
+    return Metrics(
+        classes=saved.get("classes", []),
+        accuracy=saved.get("accuracy", 0.0),
+        precision=saved.get("precision", 0.0),
+        recall=saved.get("recall", 0.0),
+        f1=saved.get("f1", 0.0),
+        confusion=None,
+        classification_report="(not available — this model was loaded from disk, not freshly evaluated.)",
+        roc_auc=saved.get("roc_auc"),
+        roc_auc_note=None,
+        predict_time_sec=saved.get("predict_time_sec", 0.0),
+        fpr=None,
+        tpr=None,
+    )
+
+
 def compute_metrics(pipeline: Pipeline, X_test: pd.Series, y_test: pd.Series, classes: list[str]) -> Metrics:
     from sklearn.metrics import classification_report as sk_classification_report
 

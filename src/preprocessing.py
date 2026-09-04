@@ -79,7 +79,11 @@ def _simple_lemmatize_word(word: str) -> str:
         return word[:-1]
     if len(word) > 5 and word.endswith("ing"):
         stem = word[:-3]
-        return stem + "e" if stem.endswith(("at", "iz", "ol")) else stem
+        if stem.endswith(("at", "iz", "ol")):
+            return stem + "e"
+        if len(stem) > 2 and stem[-1] == stem[-2] and stem[-1] not in "aeiou":
+            return stem[:-1]  # undo gerund consonant doubling: running -> runn -> run
+        return stem
     if len(word) > 4 and word.endswith("ed"):
         return word[:-2]
     return word

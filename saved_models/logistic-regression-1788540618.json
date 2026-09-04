@@ -1,0 +1,20 @@
+{
+  "slug": "logistic-regression-1788540618",
+  "model_key": "Logistic Regression",
+  "trained_at": "2026-09-04T16:50:17+00:00",
+  "n_train": 4179,
+  "n_test": 1393,
+  "classes": [
+    "ham",
+    "spam"
+  ],
+  "metrics": {
+    "accuracy": 0.9705671213208902,
+    "f1": 0.9300813247001588,
+    "roc_auc": 0.9886707283546616,
+    "precision": 0.983560545308741,
+    "recall": 0.8903743315508021,
+    "predict_time_sec": 0.026241849000143702,
+    "train_time_sec": 0.120369238999956
+  }
+}
