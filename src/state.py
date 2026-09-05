@@ -2,7 +2,7 @@
 
 Every page that depends on a prior step (a verified dataset, chosen columns,
 a trained model) calls the matching `require_*()` helper at the top instead
-of re-implementing the check — this is what keeps navigating out of order
+of re-implementing the check; this is what keeps navigating out of order
 from ever crashing the app.
 """
 
@@ -79,7 +79,7 @@ def require_trained_models() -> dict:
 
 
 def get_active_model_entry() -> tuple[str, dict]:
-    """The model used for single/batch prediction — defaults to the best F1 score."""
+    """The model used for single/batch prediction: defaults to the best F1 score."""
     models = require_trained_models()
     active_key = st.session_state.get("active_model_key")
     if active_key not in models:

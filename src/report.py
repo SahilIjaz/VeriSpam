@@ -44,7 +44,7 @@ def build_html_report(
 <html>
 <head>
 <meta charset="utf-8">
-<title>Model report — {escape(dataset_name)}</title>
+<title>Model report: {escape(dataset_name)}</title>
 <style>
   body {{ font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 900px; margin: 2rem auto; color: #1a1a1a; }}
   h1 {{ font-size: 1.5rem; }}

@@ -31,7 +31,7 @@ with st.container(horizontal=True):
 if metrics.confusion is None:
     st.info(
         "This model was loaded from disk rather than freshly trained this session, so a confusion "
-        "matrix and ROC curve aren't available — only the saved summary metrics above.",
+        "matrix and ROC curve aren't available; only the saved summary metrics above.",
         icon=":material/info:",
     )
 else:
@@ -110,8 +110,8 @@ with col_report:
         dataset_name=st.session_state.dataset_meta.filename if st.session_state.get("dataset_meta") else "dataset",
         n_rows=len(st.session_state.dataset) if st.session_state.get("dataset") is not None else 0,
         n_cols=st.session_state.dataset.shape[1] if st.session_state.get("dataset") is not None else 0,
-        text_col=st.session_state.get("text_col") or "—",
-        label_col=st.session_state.get("label_col") or "—",
+        text_col=st.session_state.get("text_col") or "N/A",
+        label_col=st.session_state.get("label_col") or "N/A",
         preprocessing_config=(
             st.session_state.preprocessing_config.as_dict() if st.session_state.get("preprocessing_config") else {}
         ),

@@ -20,9 +20,9 @@ with st.container(horizontal=True):
 st.divider()
 
 if validation.is_valid:
-    st.success("Dataset verified — ready for exploratory analysis, preprocessing, and training.", icon=":material/check_circle:")
+    st.success("Dataset verified: ready for exploratory analysis, preprocessing, and training.", icon=":material/check_circle:")
 else:
-    st.error("Validation failed — fix the issues below and re-upload.", icon=":material/error:")
+    st.error("Validation failed: fix the issues below and re-upload.", icon=":material/error:")
 
 if validation.errors:
     st.markdown("**Errors**")
@@ -55,7 +55,7 @@ if validation.is_valid and label_col:
         st.bar_chart(imbalance.class_counts)
         if imbalance.is_severe:
             st.warning(
-                "Severe class imbalance detected — accuracy alone will be misleading; "
+                "Severe class imbalance detected: accuracy alone will be misleading; "
                 "watch precision/recall/F1 per class during evaluation.",
                 icon=":material/warning:",
             )

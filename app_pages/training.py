@@ -49,7 +49,7 @@ if train_clicked:
 
     if not split.stratified:
         st.warning(
-            "Could not stratify the split (a class is too small) — using a plain random split instead.",
+            "Could not stratify the split (a class is too small); using a plain random split instead.",
             icon=":material/warning:",
         )
     st.session_state.split_config = {"test_size": test_size, "random_state": int(random_state)}
@@ -96,9 +96,9 @@ if st.session_state.trained_models:
 with st.expander("Load a previously saved model", expanded=False):
     saved = persistence.list_saved_models()
     if not saved:
-        st.caption("No saved models yet — train and save one from the Model Evaluation page.")
+        st.caption("No saved models yet; train and save one from the Model Evaluation page.")
     else:
-        options = {f"{m['model_key']} — {m.get('trained_at', m['slug'])}": m for m in saved}
+        options = {f"{m['model_key']} ({m.get('trained_at', m['slug'])})": m for m in saved}
         choice = st.selectbox("Saved models", options=list(options))
         if st.button("Load into this session", icon=":material/folder_open:"):
             meta = options[choice]
@@ -116,4 +116,4 @@ with st.expander("Load a previously saved model", expanded=False):
                     "trained_at": meta.get("trained_at", ""),
                     "classes": meta.get("classes", []),
                 }
-                st.success(f"Loaded '{meta['model_key']}' — ready for prediction.", icon=":material/check_circle:")
+                st.success(f"Loaded '{meta['model_key']}': ready for prediction.", icon=":material/check_circle:")

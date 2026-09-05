@@ -1,10 +1,10 @@
 """Per-prediction explanations: which words drove a spam/ham verdict.
 
-No SHAP dependency — each model family already exposes weights that are
+No SHAP dependency; each model family already exposes weights that are
 cheap and fast to read directly:
   - Naive Bayes: difference in per-class log-probability for each word.
   - Logistic Regression / Linear SVM: linear coefficient for each word.
-  - Random Forest: feature importances (global, not instance-specific —
+  - Random Forest: feature importances (global, not instance-specific;
     called out explicitly, since true per-instance tree explanations need
     something like SHAP's TreeExplainer, which we're deliberately not adding).
 """

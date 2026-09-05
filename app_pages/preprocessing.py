@@ -1,7 +1,7 @@
 """Configurable text preprocessing: pick cleaning steps, preview raw vs. processed text.
 
 All steps here are deterministic, content-only transforms (see
-`src/preprocessing.py` docstring) — safe to apply to the whole dataset before
+`src/preprocessing.py` docstring), safe to apply to the whole dataset before
 any train/test split. The only step that must stay train-only is TF-IDF
 fitting, which happens later, inside the training pipeline.
 """
@@ -81,7 +81,7 @@ if config is not None:
     with st.container(horizontal=True):
         st.metric("Avg. length before", f"{avg_len_before:.0f} chars", border=True)
         st.metric("Avg. length after", f"{avg_len_after:.0f} chars", border=True)
-        st.metric("Reduction", f"{(1 - avg_len_after / avg_len_before) * 100:.1f}%" if avg_len_before else "—", border=True)
+        st.metric("Reduction", f"{(1 - avg_len_after / avg_len_before) * 100:.1f}%" if avg_len_before else "N/A", border=True)
 
     st.divider()
     st.page_link("app_pages/training.py", label="Continue to Model Training", icon=":material/model_training:")

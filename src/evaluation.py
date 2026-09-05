@@ -34,7 +34,7 @@ class Metrics:
 
 
 def _positive_class(classes: list[str]) -> str:
-    """Pick the 'positive' class for binary ROC-AUC — prefer an explicit spam-like label."""
+    """Pick the 'positive' class for binary ROC-AUC: prefer an explicit spam-like label."""
     for candidate in ("spam", "1", "true", "yes"):
         for c in classes:
             if str(c).lower() == candidate:
@@ -83,7 +83,7 @@ def metrics_from_saved(saved: dict) -> Metrics:
 
     A loaded (not freshly trained) model wasn't just re-evaluated against a
     live test split, so the confusion matrix / classification report / ROC
-    curve points aren't available — only the summary numbers saved alongside
+    curve points aren't available; only the summary numbers saved alongside
     it. The Evaluation page shows a note explaining the difference.
     """
     return Metrics(
@@ -93,7 +93,7 @@ def metrics_from_saved(saved: dict) -> Metrics:
         recall=saved.get("recall", 0.0),
         f1=saved.get("f1", 0.0),
         confusion=None,
-        classification_report="(not available — this model was loaded from disk, not freshly evaluated.)",
+        classification_report="(not available: this model was loaded from disk, not freshly evaluated.)",
         roc_auc=saved.get("roc_auc"),
         roc_auc_note=None,
         predict_time_sec=saved.get("predict_time_sec", 0.0),

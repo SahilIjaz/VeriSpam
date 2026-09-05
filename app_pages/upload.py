@@ -8,7 +8,7 @@ from src.eda import dataset_overview
 from src.loader import load_uploaded_file
 from src.state import set_dataset
 
-st.caption("CSV or Excel, up to " + f"{MAX_FILE_SIZE_MB} MB. The file stays in memory for this session only — nothing is written to disk.")
+st.caption("CSV or Excel, up to " + f"{MAX_FILE_SIZE_MB} MB. The file stays in memory for this session only; nothing is written to disk.")
 
 uploaded_file = st.file_uploader(
     "Upload dataset",
@@ -57,7 +57,7 @@ with st.container(horizontal=True):
     st.metric("Data types", len(overview["dtype_counts"]), border=True, help=str(overview["dtype_counts"]))
 
 st.subheader("Column selection")
-st.caption("Auto-detected where possible — override if the guess is wrong.")
+st.caption("Auto-detected where possible; override if the guess is wrong.")
 columns = list(dataset.columns)
 col1, col2 = st.columns(2)
 with col1:

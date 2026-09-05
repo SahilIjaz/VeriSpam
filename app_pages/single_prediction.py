@@ -55,7 +55,7 @@ if predict_clicked and message.strip():
 if st.session_state.prediction_history:
     st.divider()
     st.subheader("Prediction history (this session)")
-    st.caption("Kept in memory only for this session — never written to disk.")
+    st.caption("Kept in memory only for this session; never written to disk.")
     st.dataframe(pd.DataFrame(st.session_state.prediction_history), width="stretch", hide_index=True)
     if st.button("Clear history", icon=":material/delete:"):
         st.session_state.prediction_history = []

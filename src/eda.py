@@ -1,6 +1,6 @@
 """Exploratory data analysis helpers: distributions, common words, data-quality breakdowns.
 
-Purely descriptive (no fitting), so it's safe to run on the whole dataset —
+Purely descriptive (no fitting), so it's safe to run on the whole dataset;
 these are analysis outputs for the user to look at, not features derived for
 a model.
 """

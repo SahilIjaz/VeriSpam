@@ -1,6 +1,6 @@
 """Save and load trained pipelines to disk, with metadata sidecars.
 
-Only fitted pipelines + their metrics/metadata are ever written here — raw
+Only fitted pipelines + their metrics/metadata are ever written here; raw
 uploaded datasets are never persisted (see privacy notes in the About page).
 """
 

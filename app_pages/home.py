@@ -11,7 +11,7 @@ dataset = st.session_state.get("dataset")
 validation = st.session_state.get("validation_result")
 trained_models = st.session_state.get("trained_models") or {}
 
-st.caption("Upload a spam/ham dataset, validate it, explore it, train and compare models, then predict — all in one place.")
+st.caption("Upload a spam/ham dataset, validate it, explore it, train and compare models, then predict, all in one place.")
 
 with st.container(horizontal=True):
     st.metric(
@@ -26,7 +26,7 @@ with st.container(horizontal=True):
     )
     st.metric("Models trained", len(trained_models), border=True)
     best_f1 = max((m["metrics"].f1 for m in trained_models.values()), default=None)
-    st.metric("Best F1-score", f"{best_f1:.3f}" if best_f1 is not None else "—", border=True)
+    st.metric("Best F1-score", f"{best_f1:.3f}" if best_f1 is not None else "N/A", border=True)
 
 st.divider()
 
@@ -36,13 +36,13 @@ with col_guide:
     st.subheader("Quick start")
     st.markdown(
         """
-1. **Dataset upload** — upload a CSV/Excel spam/ham dataset (or load the bundled sample below).
-2. **Data validation** — check format, schema, missing values, duplicates, and class balance.
-3. **Exploratory analysis** — inspect distributions and the most common words per class.
-4. **Preprocessing** — configure text cleaning (URLs, punctuation, stopwords, stemming, ...).
-5. **Model training** — pick one or more models, set the train/test split, and train.
-6. **Model evaluation / comparison** — inspect metrics, confusion matrices, ROC-AUC, and pick a winner.
-7. **Single / batch prediction** — classify one message or a whole new file, with explanations.
+1. **Dataset upload**: upload a CSV/Excel spam/ham dataset (or load the bundled sample below).
+2. **Data validation**: check format, schema, missing values, duplicates, and class balance.
+3. **Exploratory analysis**: inspect distributions and the most common words per class.
+4. **Preprocessing**: configure text cleaning (URLs, punctuation, stopwords, stemming, ...).
+5. **Model training**: pick one or more models, set the train/test split, and train.
+6. **Model evaluation / comparison**: inspect metrics, confusion matrices, ROC-AUC, and pick a winner.
+7. **Single / batch prediction**: classify one message or a whole new file, with explanations.
         """
     )
 

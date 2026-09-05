@@ -121,7 +121,7 @@ def validate_dataset(load_result: LoadResult, required_columns: list[str] | None
         warnings.append(
             f"Dataset is {overall_missing_ratio * 100:.1f}% missing values overall "
             f"(a small number of very sparse columns can drive this up without the "
-            f"dataset itself being unusable — check the per-column breakdown)."
+            f"dataset itself being unusable; check the per-column breakdown)."
         )
     elif overall_missing_ratio > MAX_MISSING_RATIO_WARNING:
         warnings.append(

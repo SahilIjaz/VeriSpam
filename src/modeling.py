@@ -1,4 +1,4 @@
-"""Model registry, train/test splitting, and training — the leakage-safe core.
+"""Model registry, train/test splitting, and training: the leakage-safe core.
 
 Leakage guard: TF-IDF vectorization is wrapped inside an sklearn `Pipeline`
 together with the classifier, and the pipeline is only ever `.fit()` on the

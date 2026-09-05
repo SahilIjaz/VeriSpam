@@ -1,7 +1,7 @@
 """Configurable text-preprocessing pipeline.
 
 Every step here is a deterministic, content-only transform (regex
-substitution, a fixed stopword list, a rule-based stemmer) — none of it
+substitution, a fixed stopword list, a rule-based stemmer); none of it
 learns anything from the corpus. That's what makes it safe to run on the
 *entire* dataset before the train/test split: the only step that must never
 see the test set is TF-IDF vectorization, which lives inside the training

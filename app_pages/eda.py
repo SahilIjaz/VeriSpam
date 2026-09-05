@@ -49,7 +49,7 @@ with tab_words:
     class_cols = st.columns(len(by_class)) if by_class else []
     for col, (cls, words_df) in zip(class_cols, by_class.items()):
         with col:
-            st.markdown(f"**Most common words — {cls}**")
+            st.markdown(f"**Most common words: {cls}**")
             st.bar_chart(words_df.set_index("word"))
 
 with tab_quality:
