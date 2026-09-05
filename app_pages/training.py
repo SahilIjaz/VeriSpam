@@ -55,6 +55,7 @@ if train_clicked:
     st.session_state.split_config = {"test_size": test_size, "random_state": int(random_state)}
 
     progress = st.progress(0.0, text="Training models...")
+    succeeded = []
     for i, model_key in enumerate(selected_models):
         try:
             trained = modeling.train_model(split, model_key)
@@ -72,9 +73,11 @@ if train_clicked:
             "trained_at": trained.trained_at,
             "classes": trained.classes,
         }
+        succeeded.append(model_key)
         progress.progress((i + 1) / len(selected_models), text=f"Trained {model_key}")
     progress.empty()
-    st.success(f"Trained {len(selected_models)} model(s).", icon=":material/check_circle:")
+    if succeeded:
+        st.success(f"Trained {len(succeeded)} of {len(selected_models)} model(s).", icon=":material/check_circle:")
 
 if st.session_state.trained_models:
     st.subheader("Trained models this session")

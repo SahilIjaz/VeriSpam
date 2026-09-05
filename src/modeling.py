@@ -49,6 +49,7 @@ class SplitData:
     y_train: pd.Series
     y_test: pd.Series
     stratified: bool
+    classes: list[str]
 
 
 @dataclass
@@ -95,8 +96,17 @@ def make_split(
 
     Falls back to a non-stratified split (with `stratified=False` on the
     result) if a class is too small to stratify, instead of raising.
+
+    `classes` is computed from the *full* label column, not just `y_train` —
+    this matters because a non-stratified fallback split on a small/imbalanced
+    dataset can (by chance) put every example of a rare class into the test
+    set and none into training. If `classes` were taken from `y_train` alone,
+    a later `confusion_matrix(y_test, y_pred, labels=classes)` call could end
+    up with zero overlap between `labels` and `y_test` and raise a cryptic
+    sklearn error instead of a clear one.
     """
     validate_trainable(y)
+    classes = sorted(y.unique().tolist())
     try:
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=random_state, stratify=y
@@ -107,7 +117,15 @@ def make_split(
             X, y, test_size=test_size, random_state=random_state, stratify=None
         )
         stratified = False
-    return SplitData(X_train, X_test, y_train, y_test, stratified=stratified)
+
+    if y_train.nunique() < 2:
+        raise ValueError(
+            "This dataset is too small or too imbalanced to split reliably: the training "
+            "set would end up with examples of only one class. Try a smaller test set size, "
+            "a different random seed, or add more examples of the minority class."
+        )
+
+    return SplitData(X_train, X_test, y_train, y_test, stratified=stratified, classes=classes)
 
 
 def build_pipeline(model_key: str) -> Pipeline:
@@ -127,11 +145,10 @@ def train_model(split: SplitData, model_key: str) -> TrainedModel:
     start = time.perf_counter()
     pipeline.fit(split.X_train, split.y_train)
     train_time = time.perf_counter() - start
-    classes = sorted(split.y_train.unique().tolist())
     return TrainedModel(
         model_key=model_key,
         pipeline=pipeline,
-        classes=classes,
+        classes=split.classes,
         train_time_sec=train_time,
         n_train=len(split.X_train),
         n_test=len(split.X_test),
